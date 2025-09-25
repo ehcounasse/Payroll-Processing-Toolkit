@@ -19,3 +19,23 @@ employee.forEach(emp => {
     const basePay = calculateBasePay (emp.hourlyRate, emp.hoursWorked)
 console.log (`${emp.name} makes $${basePay} as their base pay`)});
 
+
+function calculateOvertimePay(rate, hours) {
+    let overHours = 0
+    if (hours > 40) {
+        overHours = hours - 40
+    } else {
+        overHours = 0
+    }
+    return overHours * 1.5 * rate       
+}
+
+employee.forEach(emp => {
+    const basePay = calculateBasePay (emp.hourlyRate, emp.hoursWorked)
+    const overPay = calculateOvertimePay (emp.hourlyRate, emp.hoursWorked)
+    const overtimePay = basePay + overPay 
+    console.log (`${emp.name} makes $${overtimePay} with overtime pay`)
+});
+
+
+
