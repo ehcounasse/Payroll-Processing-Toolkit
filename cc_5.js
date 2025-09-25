@@ -13,12 +13,7 @@ function calculateBasePay(rate, hours) {
      }
      return rate * regHours
 };
-     
-
-employee.forEach(emp => {
-    const basePay = calculateBasePay (emp.hourlyRate, emp.hoursWorked)
-console.log (`${emp.name} makes $${basePay} as their base pay`)});
-
+    
 
 function calculateOvertimePay(rate, hours) {
     let overHours = 0
@@ -30,29 +25,27 @@ function calculateOvertimePay(rate, hours) {
     return overHours * 1.5 * rate       
 }
 
-employee.forEach(emp => {
-    const basePay = calculateBasePay (emp.hourlyRate, emp.hoursWorked)
-    const overtimePay = calculateOvertimePay (emp.hourlyRate, emp.hoursWorked)
-    const grossPay = basePay + overtimePay 
-    console.log (`${emp.name} makes $${overtimePay} with overtime pay`)
-});
 
 function calculateTaxes(grosspay) {
     return grosspay * (1-.15)
 }
 
-employee.forEach(emp => {
-    const basePay = calculateBasePay (emp.hourlyRate, emp.hoursWorked)
-    const overtimePay = calculateOvertimePay (emp.hourlyRate, emp.hoursWorked)
+function processPayroll(employee) {
+     const basePay = calculateBasePay (employee.hourlyRate, employee.hoursWorked)
+    const overtimePay = calculateOvertimePay (employee.hourlyRate, employee.hoursWorked)
     const grossPay = basePay + overtimePay
     const netPay = calculateTaxes(grossPay)
-    console.log (`${emp.name} makes $${grossPay} before taxes`)
-});
+    
+    return {
+        name: employee.name,
+        basePay:`$${basePay}`,
+        overtimePay:`$${overtimePay}`,
+        grossPay:`$${grossPay}`,
+        netPay:`$${netPay}`
+    }
 
-employee.forEach(emp => {
-    const basePay = calculateBasePay (emp.hourlyRate, emp.hoursWorked)
-    const overtimePay = calculateOvertimePay (emp.hourlyRate, emp.hoursWorked)
-    const grossPay = basePay + overtimePay
-    const netPay = calculateTaxes(grossPay)
-    console.log (`${emp.name} makes $${netPay} after taxes`)
-});
+    }
+    employee.forEach(emp => {
+        console.log(processPayroll(emp))
+    });
+    
